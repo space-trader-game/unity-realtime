@@ -3,6 +3,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Logging;
+
+using EventBus;
+using GameEvents.TimeTickSystem;
+
+namespace GameEvents.TimeTickSystem
+{
+    public struct TimeTickEvent : IEvent 
+    {
+        public int tick;
+    } // no data at this time
+
+}
 
 public class TimeTickSystem : MonoBehaviour
 {
@@ -12,7 +25,6 @@ public class TimeTickSystem : MonoBehaviour
         public int tick;
     }
 
-    public static event EventHandler<OnTickEventArgs> OnTick;
 
     // TODO: This probably needs to be adjustable for game speed
     private const float TICK_TIMER_MAX = 0.2f; // 200ms or 5 ticks per second
@@ -32,11 +44,8 @@ public class TimeTickSystem : MonoBehaviour
             tickTimer -= TICK_TIMER_MAX;
             tick++;
 
-            // check for subscribers
-            if (OnTick != null)
-            {
-                OnTick(this, new OnTickEventArgs { tick = tick }); // pass the tick to the subscribers
-            }
+            // emit the tick event
+            EventBus<TimeTickEvent>.Raise(new TimeTickEvent() { tick = tick }); ;
         }
     }
 }

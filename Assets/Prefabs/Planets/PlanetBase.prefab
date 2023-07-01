@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2277661600579685101}
   - component: {fileID: -8956094937696636912}
   m_Layer: 0
-  m_Name: StarSystemBase
+  m_Name: PlanetBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,4 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aca091433e7d2469b4745f8235bbbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  systemName: 
+  planetName: 
+  planetInterface: {fileID: 3453679334300297816, guid: 5a92044f7b2f8964488073a764e4483c, type: 3}
