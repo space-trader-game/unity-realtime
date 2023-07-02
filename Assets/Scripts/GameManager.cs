@@ -7,6 +7,7 @@ using TMPro;
 using EventBus;
 using GameEvents.TimeTickSystem;
 using System;
+using Unity.Logging.Sinks;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // set the default log level
+        Log.Logger = new Unity.Logging.Logger(new LoggerConfig().MinimumLevel.Debug()
+            .WriteTo.UnityEditorConsole());
+
         // gamemanager should subscribe to the tick system and do something with ticks
         _onTimeTick = new EventBinding<TimeTickEvent>(TimeTickSystem_OnTick);
 
@@ -41,7 +46,7 @@ public class GameManager : MonoBehaviour
     }
     private void TimeTickSystem_OnTick(TimeTickEvent @event)
     {
-        Log.Debug("Current tick: " + @event.tick);
+        Log.Verbose("Current tick: " + @event.tick);
         UpdateStardate(@event.tick);
     }
 
