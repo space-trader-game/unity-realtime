@@ -1,3 +1,5 @@
+// https://github.com/pointcache/BasicEventBus
+
 namespace EventBus
 {
     using System;

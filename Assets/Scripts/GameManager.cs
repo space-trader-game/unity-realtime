@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Logging;
+using Unity.Logging.Sinks;
+
 using TMPro;
 
 using EventBus;
 using GameEvents.TimeTickSystem;
-using System;
-using Unity.Logging.Sinks;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
     private void TimeTickSystem_OnTick(TimeTickEvent @event)
     {
-        Log.Verbose("Current tick: " + @event.tick);
+        Log.Verbose($"Processing tick: {@event.tick}");
         UpdateStardate(@event.tick);
     }
 

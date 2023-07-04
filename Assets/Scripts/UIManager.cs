@@ -46,20 +46,23 @@ public class UIManager : MonoBehaviour
     // When a planet is clicked, its details screen should be displayed
     private void OnClickedPlanet(ClickedPlanetEvent @event)
     {
-        Log.Debug("Object clicked: " + @event.clickedPlanet);
+        // find any details panels and destroy them
+        GameObject[] panels = GameObject.FindGameObjectsWithTag("DetailsPanel");
 
-        // delete all the children of the ObjectDetails panel
-        foreach (Transform child in objectDetails.transform)
+        foreach (GameObject panel in panels) 
         {
-            Log.Debug("Deleting UI item: " + child);
-            GameObject.Destroy(child.gameObject);
+            Log.Verbose($"Deleting panel {panel.name}/{panel.GetInstanceID()}");
+            Destroy(panel);
         }
 
         Planet clickedPlanet = @event.clickedPlanet;
 
         // add the object's details panel
+        Log.Verbose($"Instantiating panel for {clickedPlanet.planetName}");
         PlanetDetails planetDetails = Instantiate(clickedPlanet.planetDetails, objectDetails.transform);
-        planetDetails.InitializeDetails(clickedPlanet);
+
+        Log.Verbose($"Initializing panel for {clickedPlanet.planetName}");
+        planetDetails.InitializeDetails(clickedPlanet, planetDetails.transform);
     }
 
 }
